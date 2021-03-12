@@ -1,0 +1,35 @@
+{
+    "Type": 6,
+    "CommonConfig": null,
+    "RacingConfig": null,
+    "BasketballConfig": null,
+    "EggConfig": null,
+    "MeasurementStage": null,
+    "Measurement": null,
+    "Result": {
+        "UserScores": [
+            {
+                "User": {
+                    "Name": "홍길동",
+                    "School": "길동초등학교"
+                },
+                "Score": 100.0
+            },
+            {
+                "User": {
+                    "Name": "손흥민",
+                    "School": "길동초등학교"
+                },
+                "Score": 90.0
+            },
+            {
+                "User": {
+                    "Name": "이강인",
+                    "School": "길동초등학교"
+                },
+                "Score": 80.0
+            }
+        ]
+    },
+    "Rank": null
+}

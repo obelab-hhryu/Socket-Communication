@@ -1,0 +1,29 @@
+{
+    "Type": 5,
+    "CommonConfig": null,
+    "RacingConfig": null,
+    "BasketballConfig": null,
+    "EggConfig": null,
+    "Measurement": {
+        "UserDataArray": [
+            {
+                "Name": "홍길동",
+                "School": "길동초등학교",
+                "Value": 6
+            },
+            {
+                "Name": "홍길동",
+                "School": "길동초등학교",
+                "Value": 5
+            },
+            {
+                "Name": "홍길동",
+                "School": "길동초등학교",
+                "Value": 9
+            }
+        ]
+    },
+    "MeasurementStage": null,
+    "Result": null,
+    "Rank": null
+}

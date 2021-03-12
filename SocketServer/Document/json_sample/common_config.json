@@ -1,0 +1,31 @@
+{
+  "Type": 0,
+  "CommonConfig": {
+    "Users": [
+      {
+        "Name": "홍길동",
+        "School": "길동초등학교"
+      },
+      {
+        "Name": "김길동",
+        "School": "길동초등학교"
+      },
+      {
+        "Name": "이길동",
+        "School": "길동초등학교"
+      }
+    ],
+    "PlayerCount": 3,
+    "Sensitivity": 6,
+    "WatingTime": 20,
+    "PlayTime": 30,
+    "ResultTime": 15
+  },
+  "RacingConfig": null,
+  "BasketballConfig": null,
+  "EggConfig": null,
+  "MeasurementStage": null,
+  "Measurement": null,
+  "Result": null,
+  "Rank": null
+}

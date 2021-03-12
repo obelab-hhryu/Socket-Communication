@@ -1,0 +1,109 @@
+{
+    "Type": 7,
+    "CommonConfig": null,
+    "RacingConfig": null,
+    "BasketballConfig": null,
+    "EggConfig": null,
+    "MeasurementStage": null,
+    "Measurement": null,
+    "Result": null,
+    "Rank": {
+        "BestArray": [
+            {
+                "User": {
+                    "Name": "홍길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 1
+            },
+            {
+                "User": {
+                    "Name": "김길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 2
+            },
+            {
+                "User": {
+                    "Name": "이길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 3
+            },
+            {
+                "User": {
+                    "Name": "조길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 4
+            },
+            {
+                "User": {
+                    "Name": "최길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 5
+            }
+        ],
+        "WorstArray": [
+            {
+                "User": {
+                    "Name": "정철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 106
+            },
+            {
+                "User": {
+                    "Name": "장철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 107
+            },
+            {
+                "User": {
+                    "Name": "우철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 108
+            },
+            {
+                "User": {
+                    "Name": "박철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 109
+            },
+            {
+                "User": {
+                    "Name": "강철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 110
+            }
+        ],
+        "PlayerArray": [
+            {
+                "User": {
+                    "Name": "장길동",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 7
+            },
+            {
+                "User": {
+                    "Name": "박이수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 52
+            },
+            {
+                "User": {
+                    "Name": "강철수",
+                    "School": "우리초등학교"
+                },
+                "Ranking": 110
+            }
+        ]
+    }
+}

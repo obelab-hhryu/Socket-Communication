@@ -1,0 +1,135 @@
+{
+    "Type": 2,
+    "CommonConfig": null,
+    "RacingConfig": null,
+    "BasketballConfig": {
+        "MaxShootingCount": 20,
+        "ShootingPositions": [
+            {
+                "X": 0.0,
+                "Y": 1.73,
+                "Z": 4.8,
+                "StandardValue": 10
+            },
+            {
+                "X": -4.0,
+                "Y": 1.73,
+                "Z": 0.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 1.0,
+                "Y": 1.73,
+                "Z": 8.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 2.0,
+                "Y": 1.73,
+                "Z": 6.5,
+                "StandardValue": 10
+            },
+            {
+                "X": -3.0,
+                "Y": 1.73,
+                "Z": 8.48,
+                "StandardValue": 10
+            },
+            {
+                "X": 3.0,
+                "Y": 1.73,
+                "Z": 8.48,
+                "StandardValue": 10
+            },
+            {
+                "X": 1.5,
+                "Y": 1.73,
+                "Z": 3.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 6.0,
+                "Y": 1.73,
+                "Z": 4.0,
+                "StandardValue": 10
+            },
+            {
+                "X": -6.0,
+                "Y": 1.73,
+                "Z": -3.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 0.0,
+                "Y": 1.73,
+                "Z": -8.48,
+                "StandardValue": 10
+            },
+            {
+                "X": 0.0,
+                "Y": 1.73,
+                "Z": 4.8,
+                "StandardValue": 10
+            },
+            {
+                "X": -4.0,
+                "Y": 1.73,
+                "Z": 0.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 1.0,
+                "Y": 1.73,
+                "Z": 8.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 2.0,
+                "Y": 1.73,
+                "Z": 6.5,
+                "StandardValue": 10
+            },
+            {
+                "X": -3.0,
+                "Y": 1.73,
+                "Z": 8.48,
+                "StandardValue": 10
+            },
+            {
+                "X": 3.0,
+                "Y": 1.73,
+                "Z": 8.48,
+                "StandardValue": 10
+            },
+            {
+                "X": 1.5,
+                "Y": 1.73,
+                "Z": 3.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 6.0,
+                "Y": 1.73,
+                "Z": 4.0,
+                "StandardValue": 10
+            },
+            {
+                "X": -6.0,
+                "Y": 1.73,
+                "Z": -3.0,
+                "StandardValue": 10
+            },
+            {
+                "X": 0.0,
+                "Y": 1.73,
+                "Z": -8.48,
+                "StandardValue": 10
+            }
+        ]
+    },
+    "EggConfig": null,
+    "MeasurementStage": null,
+    "Measurement": null,
+    "Result": null,
+    "Rank": null
+}

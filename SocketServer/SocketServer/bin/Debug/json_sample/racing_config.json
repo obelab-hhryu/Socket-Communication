@@ -1,0 +1,14 @@
+{
+    "Type": 1,
+    "CommonConfig": null,
+    "RacingConfig": {
+        "MinSpeed": 10,
+        "MaxSpeed": 60
+    },
+    "BasketballConfig": null,
+    "EggConfig": null,
+    "MeasurementStage": null,
+    "Measurement": null,
+    "Result": null,
+    "Rank": null
+}
