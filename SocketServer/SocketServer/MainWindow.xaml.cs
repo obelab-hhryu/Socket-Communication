@@ -39,20 +39,10 @@ namespace SocketServer
 
         private void OnSelectGame(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new OpenFileDialog())
-            {
-                dialog.InitialDirectory = _gameProcessPath;
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    _server = new Server("127.0.0.1", 5555);
-                    _server.LogGenerated += Server_LogGenerated;
-                    _server.ClientConnected += Server_ClientConnected;
-                    _server.GameResultReceived += Server_GameResultReceived;
-
-                    var startInfo = new ProcessStartInfo(dialog.FileName);
-                    var process = Process.Start(startInfo);
-                }
-            }
+            _server = new Server("127.0.0.1", 5555);
+            _server.LogGenerated += Server_LogGenerated;
+            _server.ClientConnected += Server_ClientConnected;
+            _server.GameResultReceived += Server_GameResultReceived;
         }
 
         private void Server_GameResultReceived(object sender, System.EventArgs e)
