@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SocketServer\SocketServer.csproj", "{7BA611B9-210C-4A6D-A92D-A848A46222A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketModel", "..\..\Project\SocketModel\SocketModel.csproj", "{1AADB4CE-86A7-4E81-9CC4-A4C9D87B7FE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketModel", "..\SocketModel\SocketModel.csproj", "{1AADB4CE-86A7-4E81-9CC4-A4C9D87B7FE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

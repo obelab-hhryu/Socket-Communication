@@ -1,0 +1,6 @@
+D:\Project\SocketModel\bin\Release\SocketModel.dll
+D:\Project\SocketModel\bin\Release\SocketModel.pdb
+D:\Project\SocketModel\obj\Release\SocketModel.csprojAssemblyReference.cache
+D:\Project\SocketModel\obj\Release\SocketModel.csproj.CoreCompileInputs.cache
+D:\Project\SocketModel\obj\Release\SocketModel.dll
+D:\Project\SocketModel\obj\Release\SocketModel.pdb
