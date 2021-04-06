@@ -118,7 +118,7 @@ namespace SocketServer
 
                 Thread.Sleep(500);
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     var measurement = ConvertJsonToByteArray(JsonFilePaths[5]);
                     args.Socket.Send(measurement);
