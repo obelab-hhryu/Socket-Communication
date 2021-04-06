@@ -1,9 +1,6 @@
 {
-    "Type": 5,
+    "Type": 2,
     "CommonConfig": null,
-    "RacingConfig": null,
-    "BasketballConfig": null,
-    "EggConfig": null,
     "Measurement": {
         "UserDataArray": [
             {

@@ -18,12 +18,9 @@
     "PlayerCount": 3,
     "Sensitivity": 6,
     "WatingTime": 20,
-    "PlayTime": 30,
+    "PlayTime": 10,
     "ResultTime": 15
   },
-  "RacingConfig": null,
-  "BasketballConfig": null,
-  "EggConfig": null,
   "MeasurementStage": null,
   "Measurement": null,
   "Result": null,

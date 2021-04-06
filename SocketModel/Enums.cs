@@ -3,9 +3,6 @@
     public enum DataType
     {
         CommonConfig,
-        RacingConfig,
-        BasketballConfig,
-        EggConfig,
         MeasurementStage,
         Measurement,
         Result,

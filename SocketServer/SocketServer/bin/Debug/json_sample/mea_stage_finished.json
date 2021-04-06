@@ -1,9 +1,6 @@
 {
-    "Type": 4,
+    "Type": 1,
     "CommonConfig": null,
-    "RacingConfig": null,
-    "BasketballConfig": null,
-    "EggConfig": null,
     "MeasurementStage": {
         "Stage": 1
     },

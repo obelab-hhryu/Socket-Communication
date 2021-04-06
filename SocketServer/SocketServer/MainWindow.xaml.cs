@@ -1,9 +1,12 @@
-﻿using SocketModel;
+﻿using Newtonsoft.Json;
+using SocketModel;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -20,17 +23,27 @@ namespace SocketServer
         private string _gameConfigJson = string.Empty;
         private string _gameProcessPath = string.Empty;
 
-        private static readonly string[] JsonFilePaths = new string[]
+        private UserInfo[] _users;
+        private int _watingTime = 0;
+        private int _playTime = 5;
+
+        private object _lockObj = new object();
+        private bool _isMeasuring = false;
+
+        private const int DELAY_SEC = 124; // millisec
+
+        private readonly string[] _jsonFilePathArray = new string[]
         {
             Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "common_config.json"),
-            Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "racing_config.json"),
-            Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "basketball_config.json"),
-            Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "egg_config.json"),
             Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "mea_stage_started.json"),
-            Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "measurement.json"),
             Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "mea_stage_finished.json"),
             Path.Combine(Directory.GetCurrentDirectory(), "json_sample", "rank.json"),
         };
+
+        //private readonly int[] _measurementValueArray = new int[]
+        //{
+        //    5, 10 ,15, 20
+        //};
 
         public MainWindow()
         {
@@ -43,6 +56,28 @@ namespace SocketServer
             _server.LogGenerated += Server_LogGenerated;
             _server.ClientConnected += Server_ClientConnected;
             _server.GameResultReceived += Server_GameResultReceived;
+
+            GetCommonConfig();
+        }
+
+        private void GetCommonConfig()
+        {
+            string jsonStr = string.Empty;
+
+            using (var sr = new StreamReader(_jsonFilePathArray[0]))
+            {
+                jsonStr = sr.ReadToEnd();
+            }
+
+            if (string.IsNullOrEmpty(jsonStr) == false)
+            {
+                JsonConvert.DefaultSettings = () => new JsonSerializerSettings { Formatting = Formatting.Indented };
+                var jsonObj = JsonConvert.DeserializeObject<SocketData>(jsonStr.ToString());
+
+                _users = jsonObj.CommonConfig.Users;
+                _watingTime = jsonObj.CommonConfig.WatingTime;
+                _playTime = jsonObj.CommonConfig.PlayTime;
+            }
         }
 
         private void Server_GameResultReceived(object sender, System.EventArgs e)
@@ -54,13 +89,18 @@ namespace SocketServer
                     switch (args.Type)
                     {
                         case DataType.Result:
+                            lock (_lockObj)
+                            {
+                                _isMeasuring = false;
+                            }
+
                             foreach (var item in args.Result.UserScores)
                             {
                                 this.logManager.Items.Add($"User: {item.User.Name}/{item.User.School}, Score: {item.Score}");
                                 this.logManager.Items.Add("--------------------------------------------------------");
                             }
 
-                            var data = ConvertJsonToByteArray(JsonFilePaths[7]);
+                            var data = ConvertJsonToByteArray(_jsonFilePathArray[3]);
                             bool isSent = _server.Send(data);
 
                             if (isSent)
@@ -71,7 +111,7 @@ namespace SocketServer
                                 });
                             }
                             break;
-                        
+
                         case DataType.Rank:
                             break;
                     }
@@ -88,57 +128,61 @@ namespace SocketServer
                     this.logManager.Items.Add("Client connected.");
                 });
 
-                var json = ConvertJsonToByteArray(JsonFilePaths[0]);
-                args.Socket.Send(json);
+                #region Send Common config
+                SendSocket(args.Socket, _jsonFilePathArray[0], "Send Common config.");
+                #endregion
 
-                Thread.Sleep(500);
+                #region Send Start measurement sign.
+                SendSocket(args.Socket, _jsonFilePathArray[1], "Send MeasurementStage as start.");
+                #endregion
 
-                Dispatcher.Invoke(delegate
-                {
-                    this.logManager.Items.Add("Send Common config.");
-                });
+                #region Start sending mesurement.
+                //Thread.Sleep((_watingTime - 1) * 1000);
+                StartSendingMeasurement(args.Socket);
+                #endregion
 
-                json = ConvertJsonToByteArray(_gameConfigJson);
-                args.Socket.Send(json);
-
-                Dispatcher.Invoke(delegate
-                {
-                    this.logManager.Items.Add("Send Game config.");
-                });
-
-                Thread.Sleep(500);
-
-                json = ConvertJsonToByteArray(JsonFilePaths[4]);
-                args.Socket.Send(json);
-
-                Dispatcher.Invoke(delegate
-                {
-                    this.logManager.Items.Add("Send MeasurementStage.");
-                });
-
-                Thread.Sleep(500);
-
-                for (int i = 0; i < 100; i++)
-                {
-                    var measurement = ConvertJsonToByteArray(JsonFilePaths[5]);
-                    args.Socket.Send(measurement);
-
-                    Dispatcher.Invoke(delegate
-                    {
-                        this.logManager.Items.Add("Send measurement value.");
-                    });
-
-                    Thread.Sleep(500);
-                }
-
-                json = ConvertJsonToByteArray(JsonFilePaths[6]);
-                args.Socket.Send(json);
-
-                Dispatcher.Invoke(delegate
-                {
-                    this.logManager.Items.Add("Send MeasurementStage.");
-                });
+                #region Send finished measurement sign.
+                //SendSocket(args.Socket, _jsonFilePathArray[2], "Send MeasurementStage as finished.");
+                #endregion
             }
+
+        }
+        private void StartSendingMeasurement(Socket socket)
+        {
+            Task.Run(() =>
+            {
+                _isMeasuring = true;
+
+                while (true)
+                {
+                    var byteDataToSend = GenerateMeasurementPacket();
+                    if (byteDataToSend != null)
+                    {
+                        try
+                        {
+                            socket.Send(byteDataToSend);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+
+                        Thread.Sleep(DELAY_SEC);
+
+                        App.Current.Dispatcher.Invoke(delegate
+                        {
+                            this.logManager.Items.Add("Send Measurement");
+                        });
+                    }
+
+                    lock (_lockObj)
+                    {
+                        if (_isMeasuring == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+            });
         }
 
         private void Server_LogGenerated(object sender, System.EventArgs e)
@@ -152,6 +196,41 @@ namespace SocketServer
             }
         }
 
+        private void SendSocket(Socket socket, string jsonFilePath, string logMessage)
+        {
+            var json = ConvertJsonToByteArray(jsonFilePath);
+            socket.Send(json);
+
+            Thread.Sleep(DELAY_SEC);
+
+            Dispatcher.Invoke(delegate
+            {
+                this.logManager.Items.Add(logMessage);
+            });
+        }
+
+        private byte[] GenerateMeasurementPacket()
+        {
+            if (_users == null) return null;
+
+            var rnd = new Random();
+            UserData[] userDataContainedMeasurementArray = new UserData[_users.Length];
+
+
+            for (int i = 0; i < _users.Length; i++)
+            {
+                var user = _users[i];
+                userDataContainedMeasurementArray[i] = new UserData(user.Name, user.School, rnd.Next(1, 20));
+            }
+
+            var meaData = new Measurement(userDataContainedMeasurementArray);
+            var data = new SocketData(DataType.Measurement, null, null, meaData, null, null);
+
+            var jsonStr = JsonConvert.SerializeObject(data);
+
+            return Encoding.UTF8.GetBytes(jsonStr);
+        }
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems[0] is ComboBoxItem ctrl)
@@ -160,17 +239,17 @@ namespace SocketServer
 
                 if (content == "레이싱")
                 {
-                    _gameConfigJson = JsonFilePaths[1];
+                    _gameConfigJson = _jsonFilePathArray[1];
                     _gameProcessPath = Path.Combine(Directory.GetCurrentDirectory(), "Games", "Racing");
                 }
                 else if (content == "농구")
                 {
-                    _gameConfigJson = JsonFilePaths[2];
+                    _gameConfigJson = _jsonFilePathArray[2];
                     _gameProcessPath = Path.Combine(Directory.GetCurrentDirectory(), "Games", "BasketBall");
                 }
                 else if (content == "알키우기")
                 {
-                    _gameConfigJson = JsonFilePaths[3];
+                    _gameConfigJson = _jsonFilePathArray[3];
                     _gameProcessPath = Path.Combine(Directory.GetCurrentDirectory(), "Games", "Egg");
                 }
             }
@@ -185,4 +264,3 @@ namespace SocketServer
         }
     }
 }
-
